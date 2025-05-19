@@ -1,0 +1,45 @@
+from verkiezing import Kandidaat, Kiezer
+
+class DecaanKandidaat(Kandidaat):
+    def __init__(self, naam, opleiding):
+        super().__init__(naam)
+        self.opleiding = opleiding
+
+    def __str__(self):
+        return "Kandidaat: {} (Opleiding: {})".format(self.naam, self.opleiding)
+
+class DecaanKiezer(Kiezer):
+    def __init__(self, naam, opleiding):
+        super().__init__(naam)
+        self.opleiding = opleiding
+
+    def stem(self, kandidaat):
+        if isinstance(kandidaat, DecaanKandidaat) and kandidaat.opleiding == self.opleiding:
+            kandidaat.geef_stem("stem")
+            print("{} heeft gestemd op {} (Opleiding: {})".format(self.naam, kandidaat.naam, self.opleiding))
+        else:
+            print("{} mag niet stemmen op {} (andere opleiding)".format(self.naam, kandidaat.naam)
+decaan_kandidaten = [
+    DecaanKandidaat("Lisa", "Informatica"),
+    DecaanKandidaat("Mohammed", "Rechten"),
+    DecaanKandidaat("Sanne", "Psychologie"),
+    DecaanKandidaat("Thomas", "Informatica")
+]
+
+kiezers = [
+    DecaanKiezer("Emma", "Informatica"),
+    DecaanKiezer("David", "Rechten"),
+    DecaanKiezer("Sophie", "Psychologie"),
+    DecaanKiezer("Alex", "Informatica")
+]
+
+print("STEMPROCES DECANEN")
+kiezers[0].stem_op(decaan_kandidaten[0])  
+kiezers[3].stem_op(decaan_kandidaten[3])  
+kiezers[1].stem_op(decaan_kandidaten[1])  
+kiezers[0].stem_op(decaan_kandidaten[2])  
+
+
+print("\n=== STEMRESULTATEN ===")
+for kandidaat in decaan_kandidaten:
+    print(kandidaat)
