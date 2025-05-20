@@ -1,27 +1,54 @@
-class Kandidaat:
-    def __init__(self, naam):
-        self.naam = naam
-        self.stemmen = []
+from abc import ABC, abstractmethod
+
+class Kandidaat(ABC):
+    def __init__(self, naam_kandidaat):
+        self.__naam_kandidaat = naam_kandidaat
+        self.__stemmen = []
 
     def geef_stem(self, stem):
-        self.stemmen.append(stem)
+        if isinstance(stem, Stem):
+            self.get_stemmen.append(stem)
+        else:
+            raise ValueError('Ongeldige stem')
 
-    def __str__(self):
-        return f"{self.naam}"
+    @property
+    def get_stemmen(self):
+        return self.__stemmen
     
-class Stem:
+    @property
+    def get_naam_kandidaat(self):
+        return self.__naam_kandidaat
+
+    @abstractmethod
+    def __str__(self):
+        return f'{self.get_naam_kandidaat} '
+    
+class Stem(ABC):
     def __init__(self, kandidaat):
-        self.kandidaat = kandidaat
-
-    def __str__(self):
-        return f"Stem op {self.kandidaat}"
+        if not isinstance(kandidaat, Kandidaat):
+            raise ValueError('Ongeldige kandidaat')
+        self.__kandidaat = kandidaat
     
-class Kiezer:
-    def __init__(self, naam):
-        self.naam = naam
+    @property
+    def get_kandidaat(self):
+        return self.__kandidaat
 
+    @abstractmethod
+    def __str__(self):
+        return f'Stem op {self.get_kandidaat} '
+    
+class Kiezer(ABC):
+    def __init__(self, naam_kiezer):
+        self.__naam_kiezer = naam_kiezer
 
+    @property
+    def get_naam_kiezer(self):
+        return self.__naam_kiezer
+
+    @abstractmethod
     def stem(self, kandidaat):
-        stem = Stem(kandidaat)
-        kandidaat.geef_stem(stem)
-        print(f"{self.naam} heeft gestemd op {kandidaat}")
+        pass
+    
+    @abstractmethod
+    def __str__(self):
+        return f'Kiezer: {self.get_naam_kiezer}'
