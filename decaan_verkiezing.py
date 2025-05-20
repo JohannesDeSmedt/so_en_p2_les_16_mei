@@ -1,6 +1,6 @@
 from verkiezing import Kandidaat, Stem, Kiezer
 import random
-#from faker import Faker
+from faker import Faker
 
 class DecaanKandidaat(Kandidaat):
     def __init__(self, naam_kandidaat, opleiding):
@@ -58,18 +58,18 @@ kandidatenlijst = [
 
 #kiezerslijst
 random.seed(42)
-'''vakken = ['Biotechnologie', 'Artificiële Intelligentie', 'Bedrijfskunde', 'Milieuwetenschappen', 'Neurowetenschappen', 'Handelsingenieur']
+vakken = ['Biotechnologie', 'Artificiële Intelligentie', 'Bedrijfskunde', 'Milieuwetenschappen', 'Neurowetenschappen', 'Handelsingenieur']
 fake = Faker('nl_NL')
 kiezerslijst = []
 for i in range(50):
-    kiezerslijst.append(DecaanKiezer(fake.first_name(), random.choice(vakken)))'''
+    kiezerslijst.append(DecaanKiezer(fake.first_name(), random.choice(vakken)))
 
-kiezerslijst = [
+'''kiezerslijst = [
     DecaanKiezer("Anna", "Bedrijfskunde"),
     DecaanKiezer("Victor", "Handelsingenieur"),
     DecaanKiezer("Nora", "Biotechnologie"),
     DecaanKiezer("Jan", "Neurowetenschappen")
-]
+]'''
 
 #Stemprocedure
 stemmen = []
