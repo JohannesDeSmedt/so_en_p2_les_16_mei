@@ -1,0 +1,38 @@
+from verkiezing import Kandidaat, Stem, Kiezer
+
+class RectorKandidaat(Kandidaat):
+    def __init__(self, naam, faculteit):
+        super().__init__(naam)
+        self.faculteit = faculteit
+
+    def __str__(self):
+        return f"{self.naam} (Rector: {self.faculteit})"
+    
+class RectorStem(Stem):
+    def __init__(self, kandidaat, faculteit):
+        super().__init__(kandidaat)
+        self.faculteit = faculteit
+
+    def __str__(self):
+        return f"Stem op {self.kandidaat} (Rector: {self.faculteit})"
+
+
+# Voorbeeldgebruik met namen:
+if __name__ == "__main__":
+    # Maak enkele kandidaten aan met namen en faculteiten
+    kandidaten = [
+        RectorKandidaat("Prof. Dr. Jan Jansen", "Geneeskunde"),
+        RectorKandidaat("Dr. Marieke de Vries", "Rechten"),
+        RectorKandidaat("Prof. Ahmed Al-Masri", "Technische Wetenschappen"),
+        RectorKandidaat("Dr. Ingrid Verbeke", "Letteren en Wijsbegeerte")
+    ]
+    
+    # Maak een kiezer aan
+    kiezer1 = Kiezer("Pieter", "Informatica")
+    
+    # Laat de kiezer stemmen
+    stem = RectorStem(kandidaten[2], kiezer1.faculteit)
+    kiezer1.stem_uitbrengen(stem)
+    
+    # Toon de stem
+    print(kiezer1.stem)  # Output: Stem op Prof. Ahmed Al-Masri (Rector: Technische Wetenschappen) (Rector: Informatica)
