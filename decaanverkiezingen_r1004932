@@ -1,0 +1,58 @@
+from verkiezing import Kandidaat, Stem, Kiezer
+
+class DecaanKandidaat(Kandidaat):
+    def __init__(self, naam, opleiding):
+        super().__init__(naam)
+        self.opleiding = opleiding
+
+    def __str__(self):
+        return f"{self.naam} ({self.opleiding})"
+    
+class DecaanStem(Stem):
+    def __init__(self, kandidaat, opleiding):
+        super().__init__(kandidaat)
+        self.opleiding = opleiding
+
+    def __str__(self):
+        return f"Stem op {self.kandidaat} ({self.opleiding})"
+    
+class DecaanKiezer(Kiezer):
+    def __init__(self, naam, opleiding):
+        super().__init__(naam)
+        self.opleiding = opleiding
+
+    def stem(self, kandidaat):
+        if kandidaat.opleiding == self.opleiding:
+            stem = DecaanStem(kandidaat, self.opleiding)
+            kandidaat.geef_stem(stem)
+            print(f"{self.naam} heeft gestemd op {kandidaat.naam} ({self.opleiding})")
+        else:
+            print(f"{self.naam} kan niet stemmen op {kandidaat.naam} ({kandidaat.opleiding})")
+
+
+# Voorbeeldgebruik met namen:
+if __name__ == "__main__":
+    # Maak decaan kandidaten aan
+    kandidaten = [
+        DecaanKandidaat("Prof. Van den Broeck", "Informatica"),
+        DecaanKandidaat("Dr. Verstappen", "Geneeskunde"),
+        DecaanKandidaat("Prof. De Smet", "Rechten"),
+        DecaanKandidaat("Dr. Peeters", "Informatica")
+    ]
+    
+    # Maak kiezers aan
+    kiezer1 = DecaanKiezer("Student Jan", "Informatica")
+    kiezer2 = DecaanKiezer("Student Marie", "Rechten")
+    kiezer3 = DecaanKiezer("Student Ali", "Geneeskunde")
+    
+    # Laat kiezers stemmen
+    print("\nStemproces:")
+    kiezer1.stem(kandidaten[0])  # Geldige stem
+    kiezer1.stem(kandidaten[1])  # Ongeldige stem (andere opleiding)
+    kiezer2.stem(kandidaten[2])  # Geldige stem
+    kiezer3.stem(kandidaten[1])  # Geldige stem
+    kiezer3.stem(kandidaten[3])  # Ongeldige stem
+    
+    print("\nStemresultaten:")
+    for kandidaat in kandidaten:
+        print(f"{kandidaat.naam}: {kandidaat.stemmen} stemmen")
