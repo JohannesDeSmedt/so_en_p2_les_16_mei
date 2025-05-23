@@ -1,27 +1,40 @@
 class Kandidaat:
     def __init__(self, naam):
-        self.naam = naam
-        self.stemmen = []
+        self._naam = naam
 
-    def geef_stem(self, stem):
-        self.stemmen.append(stem)
+    @property
+    def naam(self):
+        return self._naam
 
     def __str__(self):
-        return f"{self.naam}"
-    
+        return f"{self._naam}"
+
 class Stem:
-    def __init__(self, kandidaat):
-        self.kandidaat = kandidaat
+    def __init__(self, kiezer, kandidaat):
+        self._kiezer = kiezer
+        self._kandidaat = kandidaat
+
+    @property
+    def kiezer(self):
+        return self._kiezer
+
+    @property
+    def kandidaat(self):
+        return self._kandidaat
 
     def __str__(self):
-        return f"Stem op {self.kandidaat}"
-    
+        return f"Stem van {self.kiezer} op {self.kandidaat}"
+
 class Kiezer:
     def __init__(self, naam):
-        self.naam = naam
+        self._naam = naam
+        self._stemmen_gegeven = 0
+
+    @property
+    def naam(self):
+        return self._naam
+
+    def __str__(self):
+        return f"{self._naam}"
 
 
-    def stem(self, kandidaat):
-        stem = Stem(kandidaat)
-        kandidaat.geef_stem(stem)
-        print(f"{self.naam} heeft gestemd op {kandidaat}")
